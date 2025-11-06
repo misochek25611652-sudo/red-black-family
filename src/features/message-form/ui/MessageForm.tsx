@@ -12,7 +12,7 @@ export function MessageForm() {
         if (!text.trim()) return;
 
         try {
-            await fetch("/entities/message/api/sendMessage.api", {
+            await fetch("/features/message-form/api/sendMessage.api", {
                 method: "POST",
                 body: JSON.stringify({ text }),
             });
