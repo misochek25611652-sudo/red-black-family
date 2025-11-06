@@ -18,10 +18,6 @@ export function MessageForm() {
             });
 
             setText("");
-
-            // безопасно закрываем Mini App
-            const tg = window.Telegram?.WebApp;
-            if (tg?.close) tg.close();
         } catch (err) {
             console.error("Ошибка при отправке:", err);
         }
