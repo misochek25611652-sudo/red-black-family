@@ -1,0 +1,157 @@
+@use './mixins';
+@use './variables' as *;
+
+// Анимации
+@keyframes showIn {
+    0% {
+        transform: scale(1.1);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes hideOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.1);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        transform: translateY(20px);
+        pointer-events: none;
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInBlur {
+    0% {
+        -webkit-backdrop-filter: blur(0px);
+        backdrop-filter: blur(0px); /* Без блюра */
+    }
+    100% {
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(4px); /* Блюр появляется */
+    }
+}
+
+@keyframes fadeOutBlur {
+    0% {
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px); /* Блюр присутствует */
+    }
+    100% {
+        -webkit-backdrop-filter: blur(0px);
+        backdrop-filter: blur(0px); /* Без блюра */
+    }
+}
+
+@keyframes showInDarkBlur {
+    0% {
+        -webkit-backdrop-filter: blur(0px) grayscale(0%);
+        backdrop-filter: blur(0px) grayscale(0%); /* Без блюра */
+        transform: scale(1.1);
+        opacity: 0;
+    }
+    100% {
+        -webkit-backdrop-filter: blur(0px) grayscale(40%);
+        backdrop-filter: blur(8px) grayscale(40%); /* Блюр появляется */
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes hideOutDarkBlur {
+    0% {
+        -webkit-backdrop-filter: blur(2px) grayscale(40%);
+        backdrop-filter: blur(2px);
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        -webkit-backdrop-filter: blur(0px) grayscale(40%);
+        backdrop-filter: blur(0px);
+        transform: scale(1.1);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInDarkBlur {
+    0% {
+        filter: grayscale(0%);
+        -webkit-backdrop-filter: blur(0px);
+        backdrop-filter: blur(0px); /* Без блюра */
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 0.6);
+        filter: grayscale(80%);
+        -webkit-backdrop-filter: blur(0px);
+        backdrop-filter: blur(8px); /* Блюр появляется */
+    }
+}
+
+@keyframes fadeOutDarkBlur {
+    0% {
+        background-color: rgba(0, 0, 0, 0.6);
+        filter: grayscale(80%);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px); /* Блюр присутствует */
+    }
+    100% {
+        filter: grayscale(0%);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(0px); /* Без блюра */
+    }
+}
+
+@keyframes loadingApple {
+    0% {
+        left: -30%;
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+// Анимация для контента SegmentControls: лёгкий подпрыг снизу вверх
+// Используется с миксином segmentContentBounceIn (см. _mixins.scss)
+@keyframes segmentContentBounceIn {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(-2px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

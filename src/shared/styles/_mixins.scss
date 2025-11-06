@@ -1,0 +1,39 @@
+@mixin interactive-behavior($scale: 0.96, $brightness: 1.2, $duration: 0.3s) {
+    transition: all $duration cubic-bezier(0, 0, 0.5, 1) !important;
+
+    &:active,
+    &:hover {
+        // box-shadow: 2px 4px 12px #0001;
+        transform: scale($scale) !important;
+        filter: brightness($brightness);
+    }
+}
+
+@mixin fadeInUp($duration: 0.6s, $delay: 0s, $distance: 0.5rem) {
+    opacity: 0;
+    transform: translateY($distance);
+    animation: fadeInUp $duration cubic-bezier(0, 0, 0.5, 1) $delay forwards;
+}
+
+@mixin fadeInUpStaggered($max-items: 20, $duration: 0.6s, $delay-step: 0.1s, $distance: 0.5rem) {
+    @for $i from 1 through $max-items {
+        &:nth-child(#{$i}) {
+            @include fadeInUp($duration, #{($i - 1) * $delay-step}, $distance);
+        }
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Миксин: подпрыгивание контента снизу вверх (для SegmentControls)
+// Пример использования:
+// .segment-content { @include segmentContentBounceIn(0.35s); }
+@mixin segmentContentBounceIn($duration: 0.35s, $easing: cubic-bezier(0.22, 1, 0.36, 1)) {
+    animation: segmentContentBounceIn $duration $easing both;
+    will-change: transform, opacity;
+}

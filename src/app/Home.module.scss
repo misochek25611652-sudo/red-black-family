@@ -1,0 +1,8 @@
+@use '@/shared/styles/animations';
+@use '@/shared/styles/mixins' as *;
+@use '@/shared/styles/variables' as *;
+
+.homePage {
+    display: grid;
+    gap: 32px;
+}
