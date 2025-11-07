@@ -1,4 +1,5 @@
 // app/layout.tsx
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
 import clsx from 'clsx';
@@ -34,6 +35,14 @@ export default function RootLayout({
             </head>
             <body className={clsx(styles.layout, latoSans.variable)}>
                 <main className={styles.content}>
+                    <Image
+                        src="/2.jpg"
+                        alt="Фон"
+                        className={styles.bgImage}
+                        width={200}
+                        height={100}
+                        priority
+                    />
                     {children}
                 </main>
             </body>

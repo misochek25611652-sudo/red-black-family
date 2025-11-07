@@ -4,18 +4,18 @@
 
 .layout {
     position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
     justify-items: center;
     z-index: 0;
     display: grid;
-    justify-content: center;
-    align-content: center;
-    background-image: url('/2.jpg');
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: contain;
     background-color: #000;
-    background-attachment: fixed;
-    min-height: 100vh;
+    // background-image: url('/2.jpg');
+    // background-repeat: no-repeat;
+    // background-position: bottom;
+    // background-size: contain;
+    // background-attachment: fixed;
 
     .content {
         position: relative;
@@ -27,6 +27,17 @@
 
         &::-webkit-scrollbar {
             display: none;
+        }
+
+        .bgImage {
+            position: absolute; // позиционируем поверх контейнера
+            bottom: 0; // приклеиваем к низу
+            left: 50%; // центр по горизонтали
+            transform: translateX(-50%); // корректируем смещение для центрирования
+            width: 80%; // нужная ширина изображения
+            height: auto; // сохраняем пропорции
+            object-fit: contain; // сохраняем пропорции
+            z-index: -1;
         }
     }
 }

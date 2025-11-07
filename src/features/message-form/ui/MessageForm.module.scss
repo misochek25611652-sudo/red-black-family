@@ -26,6 +26,7 @@ $glass-highlight: rgba($color-red, 0.5);
         display: grid;
         gap: 16px;
         width: 90%;
+        max-width: 512px;
         padding: 2rem;
         border-radius: 24px;
         cursor: move;
