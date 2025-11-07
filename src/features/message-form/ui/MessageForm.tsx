@@ -109,13 +109,51 @@ export function MessageForm() {
     // --- Отображение статуса ---
     if (isSent) {
         return (
-            <div className={styles.fullscreenMessage}>
-                <div className={styles.messageBox}>
-                    <h1>✅ Ваш вопрос отправлен!</h1>
+            <div className={styles.messageForm}>
+                <div
+                    className={styles.content}
+                    ref={contentRef}
+                    style={{
+                        transform: `translate(${position.x}px, ${position.y}px)`,
+                        transition: isDragging
+                            ? 'none'
+                            : 'transform 1s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                        cursor: isDragging ? 'grabbing' : 'grab',
+                    }}
+                    onMouseDown={handleMouseDown}
+                    onTouchStart={handleTouchStart}
+                >
+                    <div className={styles.glassFilter}></div>
+                    <div className={styles.glassOverlay}></div>
+                    <div className={styles.glassSpecular}></div>
+
+                    {/* Заголовок */}
+                    <h1 className={styles.title}>Ваш вопрос отправлен!</h1>
+
                     <Button onClick={closeMessage} className={styles.closeButton}>
                         Закрыть
                     </Button>
                 </div>
+
+                <svg className={styles.svg}>
+                    <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
+                        <feTurbulence
+                            type="fractalNoise"
+                            baseFrequency="0.008 0.008"
+                            numOctaves="2"
+                            seed="92"
+                            result="noise"
+                        />
+                        <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+                        <feDisplacementMap
+                            in="SourceGraphic"
+                            in2="blurred"
+                            scale="70"
+                            xChannelSelector="R"
+                            yChannelSelector="G"
+                        />
+                    </filter>
+                </svg>
             </div>
         );
     }
