@@ -16,6 +16,7 @@ export function MessageForm() {
     const [isDragging, setIsDragging] = useState(false);
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
     const contentRef = useRef<HTMLDivElement>(null);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const startDrag = (x: number, y: number) => {
         setIsDragging(true);
@@ -34,11 +35,18 @@ export function MessageForm() {
         }
     };
 
-    const handleMouseDown = (e: React.MouseEvent) => startDrag(e.clientX, e.clientY);
+    const handleMouseDown = (e: React.MouseEvent) => {
+        const target = e.target as HTMLElement;
+        // запрещаем перетаскивать, если кликнули на textarea или button
+        if (target.tagName === "TEXTAREA" || target.tagName === "BUTTON") return;
+        startDrag(e.clientX, e.clientY);
+    };
     const handleMouseMove = useCallback((e: MouseEvent) => moveDrag(e.clientX, e.clientY), [isDragging, dragStart]);
     const handleMouseUp = useCallback(() => endDrag(), [isDragging]);
 
     const handleTouchStart = (e: React.TouchEvent) => {
+        const target = e.target as HTMLElement;
+        if (target.tagName === "TEXTAREA" || target.tagName === "BUTTON") return;
         const touch = e.touches[0];
         startDrag(touch.clientX, touch.clientY);
     };
@@ -113,9 +121,16 @@ export function MessageForm() {
                         <textarea
                             className={styles.textarea}
                             value={text}
-                            onChange={(e) => setText(e.target.value)}
+                            ref={textareaRef}
+                            onChange={(e) => {
+                                setText(e.target.value);
+                                const ta = textareaRef.current;
+                                if (ta) {
+                                    ta.style.height = 'auto';              // сброс текущей высоты
+                                    ta.style.height = ta.scrollHeight + 'px'; // растягиваем по содержимому
+                                }
+                            }}
                             placeholder="Введите сообщение..."
-                            rows={4}
                         />
                         {error && <p className={styles.error}>{error}</p>}
                         <Button className={styles.button} onClick={sendMessage}>Отправить</Button>
